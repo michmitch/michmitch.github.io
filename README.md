@@ -1,4 +1,4 @@
-# corona.github.io
+# Check Corona Virus
 Check Corona Virus In a Country Using API Call
 
 I'm using API from rapidapi.com
