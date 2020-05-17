@@ -5,9 +5,9 @@ self.addEventListener('install', function(event) {
         cache.addAll([
           '/',
           '/index.html',
-          '/404.html',
           '/recipe.html',
-          '/single-recipe.html',
+         '/single-recipe.html',
+          '/404.html',
           '/css/normalize.css',
           '/css/main.css',
           '/css/bootstrap.min.css',
