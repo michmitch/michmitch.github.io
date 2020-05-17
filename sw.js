@@ -6,6 +6,8 @@ self.addEventListener('install', function(event) {
           '/',
           '/index.html',
           '/404.html',
+          '/recipe.html',
+          '/single-recipe.html',
           '/css/normalize.css',
           '/css/main.css',
           '/css/bootstrap.min.css',
