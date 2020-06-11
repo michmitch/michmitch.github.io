@@ -18,7 +18,6 @@ self.addEventListener('install', function(event) {
           '/js/modernizr-3.6.0.min.js',
           '/js/jquery-3.3.1.min.js',
           '/js/popper.min.js',
-          '/js/bootstrap.min.js',
           'js/plugins.js',
           'js/owl.carousel.min.js',
           'js/smoothscroll.min.js',
