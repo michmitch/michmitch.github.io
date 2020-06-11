@@ -1,19 +1,15 @@
-var CACHE_STATIC_NAME = 'static-v10';
-var CACHE_DYNAMIC_NAME = 'dynamic-v2';
-
 self.addEventListener('install', function(event) {
   console.log('[Service Worker] Installing Service Worker ...', event);
-  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_STATIC_NAME)
-      .then(function(cache) {
-        console.log('[Service Worker] Precaching App Shell');
-        cache.addAll([
+    caches.open('static')
+    .then(function(cache) {
+      console.log('[Service Worker] Precaching App Shell');
+      return cache.addAll([
           "/",
           "/index.html",
           "/404.html",
           "/recipe.html",
-          "/single-recipe1.html",
+          "/single-recipe.html",
           "/css/normalize.css",
           "/css/main.css",
           "/css/bootstrap.min.css",
@@ -37,10 +33,11 @@ self.addEventListener('install', function(event) {
           "/img/icons/icon-192x192.png",
           "/img/icons/icon-384x384.png",
           "/img/icons/icon-512x512.png"
-        ]);
-      })
+      ])
+    })
   )
 });
+
 
 self.addEventListener('activate', function(event) {
   console.log('[Service Worker] Activating Service Worker ....', event);
@@ -48,7 +45,7 @@ self.addEventListener('activate', function(event) {
     caches.keys()
       .then(function(keyList) {
         return Promise.all(keyList.map(function(key) {
-          if (key !== CACHE_STATIC_NAME && key !== CACHE_DYNAMIC_NAME) {
+          if (key !== 'static') {
             console.log('[Service Worker] Removing old cache.', key);
             return caches.delete(key);
           }
@@ -58,28 +55,19 @@ self.addEventListener('activate', function(event) {
   return self.clients.claim();
 });
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        if (response) {
-          return response;
-        } else {
-          return fetch(event.request)
-            .then(function(res) {
-              return caches.open(CACHE_DYNAMIC_NAME)
-                .then(function(cache) {
-                  cache.put(event.request.url, res.clone());
-                  return res;
-                })
-            })
-            .catch(function(err) {
-              return caches.open(CACHE_STATIC_NAME)
-                .then(function(cache) {
-                  return cache.match('/404.html');
-                });
-            });
-        }
-      })
+    caches.match(event.request).then((resp) => {
+      return resp || fetch(event.request).then((response) => {
+        let responseClone = response.clone();
+        caches.open('static').then((cache) => {
+          cache.put(event.request, responseClone);
+        });
+
+        return response;
+      });
+    }).catch(() => {
+      return caches.match('/index.html');
+    })
   );
 });
