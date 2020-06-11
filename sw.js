@@ -15,6 +15,7 @@ self.addEventListener('install', function(event) {
           '/css/owl.carousel.min.css',
           '/css/owl.theme.default.min.css',
           '/style.css',
+          '/js/bootstrap.min.js',
           '/js/modernizr-3.6.0.min.js',
           '/js/jquery-3.3.1.min.js',
           '/js/popper.min.js',
