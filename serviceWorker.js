@@ -5,7 +5,42 @@ self.addEventListener('install', (event) => {
     .then((cache) => {
       console.log('[Service Worker] Precaching App Shell');
       return cache.addAll([
-        './index.html'
+        './index.html',
+        './404.html',
+        './recipe.html',
+        './single-recipe.html',
+        './single-recipe1.html',
+        './single-recipe2.html',
+        './single-recipe3.html',
+        './single-recipe4.html',
+        './css/',
+        './css/normalize.css',
+        './css/main.css',
+        './css/bootstrap.min.css',
+        './css/animate.min.css',
+        './css/fontawesome-all.min.css',
+        './fonts/',
+        './fonts/flaticon.css',
+        './css/owl.carousel.min.css',
+        './css/owl.theme.default.min.css',
+        './style.css',
+        './js/',
+        './js/modernizr-3.6.0.min.js',
+        './js/jquery-3.3.1.min.js',
+        './js/popper.min.js',
+        './js/bootstrap.min.js',
+        './js/plugins.js',
+        './js/owl.carousel.min.js',
+        './js/smoothscroll.min.js',
+        './js/main.js',
+        './manifest.json',
+        './img/',
+        './img/icons/',
+        './img/icons/icon-96x96.png',
+        './img/icons/icon-144x144.png',
+        './img/icons/icon-192x192.png',
+        './img/icons/icon-384x384.png',
+        './img/icons/icon-512x512.png'
       ]);
     })
   );
