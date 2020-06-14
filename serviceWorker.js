@@ -10,7 +10,8 @@ self.addEventListener('install', (event) => {
       return cache.addAll([
         '/index.html',
         '/404.html',
-        '/img/figure/404.png'
+        '/img/figure/404.png',
+        '/img/figure/404-middle.png'
       ]);
     })
   );
