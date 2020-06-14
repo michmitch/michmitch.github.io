@@ -2,8 +2,7 @@ self.addEventListener('install', function(event) {
   console.log('[Service Worker] Installing Service Worker ...', event);
   event.waitUntil(
     caches.open('static')
-    .then(function(cache) {
-      console.log('[Service Worker] Precaching App Shell');
+    .then((cache) => {
       return cache.addAll([
         '/index.html',
         '/404.html',
@@ -32,9 +31,9 @@ self.addEventListener('install', function(event) {
         '/img/icons/icon-192x192.png',
         '/img/icons/icon-384x384.png',
         '/img/icons/icon-512x512.png'
-      ])
+      ]);
     })
-  )
+  );
 });
 
 
