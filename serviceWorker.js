@@ -1,7 +1,10 @@
+var CACHE_STATIC_NAME = 'static';
+
 self.addEventListener('install', (event) => {
   console.log('[Service Worker] Installing Service Worker ...', event);
+  self.skipWaiting();
   event.waitUntil(
-    caches.open('static')
+    caches.open(CACHE_STATIC_NAME)
     .then((cache) => {
       console.log('[Service Worker] Precaching App Shell');
       return cache.addAll([
@@ -53,7 +56,7 @@ self.addEventListener('activate', function(event) {
     caches.keys()
       .then(function(keyList) {
         return Promise.all(keyList.map(function(key) {
-          if (key !== 'static') {
+          if (key !== CACHE_STATIC_NAME) {
             console.log('[Service Worker] Removing old cache.', key);
             return caches.delete(key);
           }
@@ -84,14 +87,14 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request).then((resp) => {
       return resp || fetch(event.request).then((response) => {
         let responseClone = response.clone();
-        caches.open('static').then((cache) => {
+        caches.open(CACHE_STATIC_NAME).then((cache) => {
           cache.put(event.request, responseClone);
         });
 
         return response;
       });
     }).catch(() => {
-      return caches.match('/index.html');
+      return caches.match('./404.html');
     })
   );
 });
